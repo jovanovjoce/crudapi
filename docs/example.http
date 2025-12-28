@@ -1,0 +1,106 @@
+### Variables
+@baseUrl = http://localhost/crudapi/api.php
+@json = application/json
+@table = task
+@apiKey = 21345
+
+### Health check
+GET {{baseUrl}}/records/{{table}}
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### List all {{table}} (with pagination)
+GET {{baseUrl}}/records/{{table}}?limit=10&offset=0
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### Filter {{table}} by criteria
+GET {{baseUrl}}/records/{{table}}?filter=species,eq,cat&order=created_at,desc
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### Retrieve single {{table}} by ID
+GET {{baseUrl}}/records/{{table}}/1
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### Create a new {{table}}
+POST {{baseUrl}}/records/{{table}}
+Content-Type: {{json}}
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+{
+  "title": "instal5l",
+  "description": "install xampp"
+}
+
+###
+
+### Batch insert {{table}}
+POST {{baseUrl}}/records/{{table}}
+Content-Type: {{json}}
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+[
+  { "name": "Mila", "species": "cat", "age": 2 },
+  { "name": "Barko", "species": "dog", "age": 5 }
+]
+
+###
+
+### Update a {{table}} (PUT replaces all fields)
+PUT {{baseUrl}}/records/{{table}}/1
+Content-Type: {{json}}
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+{
+  "name": "Rex",
+  "species": "dog",
+  "age": 4
+}
+
+###
+
+### Partial update (PATCH only changes provided fields)
+PATCH {{baseUrl}}/records/{{table}}/1
+Content-Type: {{json}}
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+{
+  "age": 5
+}
+
+###
+
+### Delete a {{table}}
+DELETE {{baseUrl}}/records/{{table}}/1
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### Aggregations (count, avg, etc.)
+GET {{baseUrl}}/records/{{table}}?aggregate=count:id,avg:age&groupBy=species
+Accept: {{json}}
+X-API-KEY: {{apiKey}}
+
+###
+
+### OPTIONS preflight (CORS check)
+OPTIONS {{baseUrl}}/records/{{table}}
+Origin: http://localhost:3000
+Access-Control-Request-Method: GET
+Access-Control-Request-Headers: Content-Type
+X-API-KEY: {{apiKey}}
